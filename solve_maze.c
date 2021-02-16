@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "bmp.h"
 #include "helper.h"
 #include "maze.h"
@@ -9,6 +10,8 @@ void handle_invalid_usage(char *argv[]);
 void handle_error(char *message);
 
 int main(int argc, char *argv[]) {
+	clock_t begin = clock();
+	
 	if (argc < 2) {
 		handle_invalid_usage(argv); 
 	}
@@ -65,6 +68,10 @@ int main(int argc, char *argv[]) {
 		handle_error("Error in bmp_create_image");
 	}
 	printf("[done]\n");
+	
+	clock_t end = clock();
+	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+	printf("Time elapsed: %.3fs\n", time_spent);
 	
 	free(image_array);
 	free(processed_body);
