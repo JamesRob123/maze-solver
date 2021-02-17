@@ -5,24 +5,13 @@
 #include "maze.h"
 #include "array_list.h"
 
-// static int __maze_solve_dfs(uint8_t *maze, int height, int width, bool *visited, int current_cell, int end_cell);
 static int __find_start(uint8_t *maze, int height, int width);
 static int __find_end(uint8_t *maze, int height, int width);
 static int __get_path(uint8_t *maze, int height, int width, int start_cell, int end_cell, int **path);
 static bool __is_valid_cell(int current_cell, int height, int width);
 static int *__array_list_to_array(struct array_list *array_l);
 
-int maze_solve_dfs(uint8_t *maze, int height, int width, int **path) {
-	/* Using recursen */
-	/* bool *visited = calloc(1, height * width);
-	if (visited == NULL) {
-		return -1;
-	}
-	int start = __find_start(maze, height, width);
-	int end = __find_end(maze, height, width);
-	int iResult = __maze_solve_dfs(maze, height, width, visited, start, end);
-	free(visited); */
-	
+int maze_solve_dfs(uint8_t *maze, int height, int width, int **path) {	
 	int start_cell = __find_start(maze, height, width);
 	if (start_cell == -1) {
 		return -1;
@@ -104,25 +93,6 @@ exit:
 	free(visited);
 	return length;
 }
-
-
-/*static int __maze_solve_dfs(uint8_t *maze, int height, int width, bool *visited, int current_cell, int end_cell) {
-	if (visited[current_cell] == 1) {
-		return 1;
-	}
-	if (current_cell == end_cell) {
-		printf("Found it!!!\n");
-		return 1;
-	}
-	visited[current_cell] = true;
-	int neighbours[4] = {-width, 1, width, -1};
-	for (int i = 0; i < 4; ++i) {
-		if (maze[current_cell + neighbours[i]] == 255) {
-			__maze_solve_dfs(maze, height, width, visited, current_cell + neighbours[i], end_cell);
-		}
-	}
-	return 1;
-}*/
 
 static bool __is_valid_cell(int current_cell, int height, int width) {
 	if (current_cell > 0 && current_cell < height * width) {
